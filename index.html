@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citation AI — AI Citability &amp; Schema.org</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- TOPBAR: NAV + LIVE + DATE/TIME -->
+  <header class="topbar">
+    <a href="#home" class="brand">Citation AI<span class="dot">.</span></a>
+    <nav class="nav">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#schema" class="nav-link">Schema.org</a>
+      <a href="#charts" class="nav-link">Charts</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+    <div class="topbar-right">
+      <span class="live-badge"><span class="pulse"></span>LIVE</span>
+      <span class="datetime" id="datetime">--</span>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu">&#9776;</button>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <h1 class="title">Citation AI<span class="dot">.</span></h1>
+    <p class="slogan">For every word you type, discover <strong>how to get cited</strong>
+    by the leading AIs — ChatGPT, Gemini, Claude, Perplexity — through
+    <strong>Schema.org</strong>, structured data and entity strategy.</p>
+    <div class="search-box">
+      <input type="text" id="keyword" value="Bitcoin" placeholder="Type a word… e.g. Bitcoin" autocomplete="off">
+      <button id="analyze-btn">Analyze</button>
+    </div>
+
+    <!-- 10 EXAMPLE KEYWORDS -->
+    <div class="keyword-chips" id="keyword-chips" aria-label="Example keywords">
+      <button class="chip" data-kw="Bitcoin">Bitcoin</button>
+      <button class="chip" data-kw="Hotel">Hotel</button>
+      <button class="chip" data-kw="Sun">Sun</button>
+      <button class="chip" data-kw="Moon">Moon</button>
+      <button class="chip" data-kw="Sea">Sea</button>
+      <button class="chip" data-kw="AI SEO">AI SEO</button>
+      <button class="chip" data-kw="Coffee">Coffee</button>
+      <button class="chip" data-kw="Travel">Travel</button>
+      <button class="chip" data-kw="Fitness">Fitness</button>
+      <button class="chip" data-kw="Crypto">Crypto</button>
+    </div>
+  </section>
+
+  <main class="results">
+
+    <!-- SCORE -->
+    <section class="card score-card">
+      <h2 class="keyword-title">AI Citability Score for: <span id="kw-display">Bitcoin</span></h2>
+      <div class="score-grid">
+        <div class="gauge-wrap">
+          <canvas id="gauge" height="220"></canvas>
+          <div class="score-label" id="score-label">0%</div>
+        </div>
+        <div class="verdict">
+          <h3 id="verdict-title">—</h3>
+          <p id="verdict-text">—</p>
+          <ul class="quick-tips" id="quick-tips"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLIC APIs -->
+    <section class="card">
+      <h2>Real data from public APIs</h2>
+      <div class="api-grid">
+        <div class="api-box">
+          <h3>Wikipedia <span class="tag">REST API</span></h3>
+          <p id="wiki-extract">Loading…</p>
+          <p class="api-desc" id="wiki-desc"></p>
+        </div>
+        <div class="api-box">
+          <h3>Wikidata <span class="tag">API</span></h3>
+          <p id="wikidata-result">Loading…</p>
+        </div>
+        <div class="api-box">
+          <h3>Pageviews <span class="tag">Wikimedia API</span></h3>
+          <p>Monthly views (last 12 months): <strong id="pv-total">—</strong></p>
+          <p class="api-desc">Source: Wikimedia Pageviews API</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BARS -->
+    <section class="card">
+      <h2>Estimated coverage per AI engine</h2>
+      <div class="chart-wrap"><canvas id="engine-chart"></canvas></div>
+    </section>
+
+    <!-- CHECKLIST -->
+    <section class="card">
+      <h2>SEO checklist for AI — check what you've already done</h2>
+      <div class="checklist" id="checklist">
+        <label><input type="checkbox" data-pts="20" checked> Schema.org JSON-LD implemented</label>
+        <label><input type="checkbox" data-pts="15"> FAQPage with questions and answers</label>
+        <label><input type="checkbox" data-pts="15"> Presence on Wikipedia / Wikidata</label>
+        <label><input type="checkbox" data-pts="15"> Citable content (direct answer)</label>
+        <label><input type="checkbox" data-pts="15"> Backlinks from authoritative sources</label>
+        <label><input type="checkbox" data-pts="10"> Organization / Author data</label>
+        <label><input type="checkbox" data-pts="10"> Speed and mobile-friendly</label>
+      </div>
+      <p class="check-total">Checklist score: <strong id="check-total">20%</strong></p>
+    </section>
+
+    <!-- SCHEMA.ORG -->
+    <section class="card" id="schema">
+      <h2>What is Schema.org and how to get cited</h2>
+      <p class="schema-intro"><strong>Schema.org</strong> is the shared structured-data vocabulary created by Google, Microsoft, Yahoo and Yandex.
+      Embedded in pages as <strong>JSON-LD</strong>, it helps search engines <em>and AIs</em> understand who you are, what you offer and what your content is about.
+      Generative AIs (ChatGPT, Gemini, Perplexity) favor sources with clear structured data: Schema.org is the #1 lever to get cited.</p>
+
+      <div class="steps">
+        <article class="step">
+          <span class="step-num">01</span>
+          <h3>Article</h3>
+          <p>Mark up title, author, date and image of your content: AIs know it's a reliable article.</p>
+        </article>
+        <article class="step">
+          <span class="step-num">02</span>
+          <h3>FAQPage</h3>
+          <p>Structured questions and answers: perfect for being quoted verbatim in AI answers.</p>
+        </article>
+        <article class="step">
+          <span class="step-num">03</span>
+          <h3>Organization</h3>
+          <p>Name, logo, contacts and social profiles: it builds the identity of the entity AIs associate with the word.</p>
+        </article>
+        <article class="step">
+          <span class="step-num">04</span>
+          <h3>Product / HowTo</h3>
+          <p>For e-commerce and guides: prices, steps and ratings make the content citable and rich.</p>
+        </article>
+      </div>
+
+      <!-- JSON-LD GENERATOR -->
+      <h3 class="gen-title">Schema.org JSON-LD Generator — copy and paste</h3>
+      <div class="generator">
+        <div class="gen-controls">
+          <label>Schema type
+            <select id="schema-type">
+              <option value="Article">Article</option>
+              <option value="FAQPage">FAQPage</option>
+              <option value="Organization">Organization</option>
+              <option value="Product">Product</option>
+            </select>
+          </label>
+          <label>Keyword / name
+            <input type="text" id="schema-kw" value="Bitcoin">
+          </label>
+          <label>Site URL
+            <input type="text" id="schema-url" value="https://yoursite.com">
+          </label>
+          <button id="gen-btn" class="btn-outline">Generate snippet</button>
+        </div>
+        <div class="gen-output">
+          <button id="copy-btn" class="copy-btn">Copy</button>
+          <pre><code id="schema-output"></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXTRA CHARTS -->
+    <section id="charts" class="charts-section">
+      <div class="card">
+        <h2>Interest trend — real Wikipedia Pageviews</h2>
+        <div class="chart-wrap"><canvas id="line-chart"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Optimization profile</h2>
+        <div class="chart-wrap"><canvas id="radar-chart"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Keyword variations — citation potential</h2>
+        <div class="chart-wrap"><canvas id="polar-chart"></canvas></div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="card" id="about">
+      <h2>About</h2>
+      <p>Citation AI is an interactive tool that shows how to optimize a keyword to be
+      <strong>cited by generative AIs</strong>. It combines a simulated citability score with
+      <strong>real data</strong> retrieved from public APIs (Wikipedia, Wikidata, Wikimedia Pageviews)
+      and an <strong>Schema.org JSON-LD</strong> snippet generator ready to copy and paste.</p>
+      <p class="about-small">The goal: help you understand what makes content "citable" — structured data,
+      recognizable entities, direct answers and authority — and give you the tools to apply it right away.</p>
+    </section>
+
+    <!-- FAQ -->
+    <section class="card" id="faq">
+      <h2>FAQ</h2>
+      <details class="faq-item">
+        <summary>How do I get cited by ChatGPT and Gemini?</summary>
+        <p>Build a strong entity presence: Schema.org JSON-LD, mentions on authoritative sources,
+        content with direct answers up front, and consistent name/brand across the web.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is Schema.org really important for AIs?</summary>
+        <p>Yes. Structured data is the "native" format crawlers and AI models use to interpret pages.
+        FAQPage and Article are among the most cited schemas in AI answers.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Where do I place the JSON-LD?</summary>
+        <p>Inside a <code>&lt;script type="application/ld+json"&gt;</code> tag in the <code>&lt;head&gt;</code>
+        or right before the closing <code>&lt;body&gt;</code> tag. Always validate on validator.schema.org and
+        Google Rich Results Test.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Are the scores on this site real?</summary>
+        <p>The "Citation Score" is illustrative and deterministic; instead, Wikipedia, Wikidata and Pageviews
+        shown are real data retrieved via public APIs.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is the site responsive?</summary>
+        <p>Yes, the layout adapts to mobile, tablet and desktop. On small screens the menu becomes a hamburger.</p>
+      </details>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="card" id="contact">
+      <h2>Contact</h2>
+      <form class="contact-form" id="contact-form">
+        <div class="form-row">
+          <label>Name<br><input type="text" id="cf-name" required placeholder="Your name"></label>
+          <label>Email<br><input type="email" id="cf-email" required placeholder="you@email.com"></label>
+        </div>
+        <label>Message<br><textarea id="cf-msg" rows="4" required placeholder="Write your message…"></textarea></label>
+        <button type="submit" class="btn-dark">Send message</button>
+        <p class="form-status" id="form-status"></p>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="tech-icons">
+      <div class="tech" title="HTML5">
+        <svg viewBox="0 0 24 24" width="26" height="26"><path fill="#e34f26" d="M4 3h16l-1.5 17L12 22l-6.5-2L4 3z"/><path fill="#fff" d="M8 7h8l-.3 3.5H8.4l.2 2.5h6.9l-.4 3.5-3.1 1-3.1-1-.2-1.7H6.9l.3 3.7 5.8 1.7 5.8-1.7 1.2-13.3h-6.9L13.7 7z" transform="scale(.92) translate(1,1)"/></svg>
+        <span>HTML5</span>
+      </div>
+      <div class="tech" title="CSS3">
+        <svg viewBox="0 0 24 24" width="26" height="26"><path fill="#1572b6" d="M4 3h16l-1.5 17L12 22l-6.5-2L4 3z"/><path fill="#fff" d="M7 7h10l-.3 3.5H8.7l.3 3h7.2l-.4 3.5-3.8 1.3-3.8-1.3-.2-1.8h-1.9l.3 3.5 5.6 2 5.6-2 1.1-12.2H7.4L7 7z" transform="scale(.92) translate(1,1)"/></svg>
+        <span>CSS3</span>
+      </div>
+      <div class="tech" title="JavaScript">
+        <svg viewBox="0 0 24 24" width="26" height="26"><rect width="24" height="24" rx="3" fill="#f7df1e"/><text x="12" y="17" font-size="11" font-weight="bold" text-anchor="middle" fill="#000">JS</text></svg>
+        <span>JavaScript</span>
+      </div>
+      <div class="tech" title="Chart.js">
+        <svg viewBox="0 0 24 24" width="26" height="26"><rect width="24" height="24" rx="3" fill="#0a0a0a"/><path d="M5 18v-6M10 18V8M15 18v-9M20 18V5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>
+        <span>Chart.js</span>
+      </div>
+    </div>
+    <p>Citation AI &bull; Data APIs: Wikipedia, Wikidata, Wikimedia &bull; <span id="year"></span></p>
+  </footer>
+
+</body>
+</html>
